@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 // ---- これより上は変更しないでください ----
 /* ---- ①タスク一覧画面 ---- */
 app.get('/tasks', async (req, res) => {
+  // サンプルデータ（データベースのデータを表示するように修正する）
   let rows = [
     { id: 1, title: 'サンプルタスクA', completed: false },
     { id: 2, title: 'サンプルタスクB', completed: true },
@@ -42,14 +43,8 @@ app.get('/tasks/add', async (req, res) => {
 });
 
 app.post('/tasks/add', async (req, res) => {
-  // データの取得
-  let title = req.body.title;
-  let completed = req.body.completed === '完了';
-
-  // SQLの実行
-  let query = 'INSERT INTO tasks (title, completed) VALUES ($1, $2)';
-  let values = [title, completed];
-  await client.query(query, values);
+  // 1. フォームに入力したデータを取得
+  // 2. INSERT文を実行してデータを追加
 
   res.redirect('/tasks');
 });

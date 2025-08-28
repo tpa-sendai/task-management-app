@@ -25,10 +25,14 @@ app.get('/', (req, res) => {
 // ---- これより上は変更しないでください ----
 /* ---- ①タスク一覧画面 ---- */
 app.get('/tasks', async (req, res) => {
-  let result = await client.query('SELECT id, title, completed FROM tasks ORDER BY id');
+  let rows = [
+    { id: 1, title: 'サンプルタスクA', completed: false },
+    { id: 2, title: 'サンプルタスクB', completed: true },
+    { id: 3, title: 'サンプルタスクC', completed: false }
+  ];
 
   res.render('tasks/index', {
-    tasks: result.rows
+    tasks: rows,
   });
 });
 

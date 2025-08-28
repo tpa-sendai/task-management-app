@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>タスクを編集 - タスク一覧</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1><span class="dot"></span>タスクを編集</h1>
+      <a class="btn btn-secondary" href="/tasks">← 戻る</a>
+    </header>
+
+    <section class="card">
+      <form action="/tasks/edit/<%= task.id %>" method="POST">
+        <div class="form-group">
+          <label for="title">タイトル</label>
+          <input type="text" id="title" name="title" value="<%= task.title %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="completed">状態</label>
+          <select id="completed" name="completed" required>
+            <option value="未完了" <%= !task.completed ? 'selected' : '' %>>未完了</option>
+            <option value="完了" <%= task.completed ? 'selected' : '' %>>完了</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">更新</button>
+          <a href="/tasks" class="btn btn-secondary">キャンセル</a>
+        </div>
+      </form>
+
+      <div class="danger-zone">
+        <h2>⚠️ 危険な操作</h2>
+        <p>この操作は元に戻すことができません。慎重に行ってください。</p>
+        <form action="/tasks/delete" method="post" onsubmit="return confirm('このタスクを削除してもよろしいですか？この操作は元に戻せません。')">
+          <input type="hidden" name="id" value="<%= task.id %>" />
+          <button type="submit" class="btn btn-danger">タスクを削除</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+</body>
+
+</html>

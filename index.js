@@ -44,6 +44,7 @@ app.get('/tasks/add', async (req, res) => {
 
 app.post('/tasks/add', async (req, res) => {
   // 1. フォームに入力したデータを取得
+
   // 2. INSERT文を実行してデータを追加
 
   res.redirect('/tasks');
@@ -51,62 +52,42 @@ app.post('/tasks/add', async (req, res) => {
 
 /* ---- ③タスク編集画面 ---- */
 app.get('/tasks/edit/:id', async (req, res) => {
-  // URL中の:idの値を取得
-  let id = req.params.id;
+  // 1. URL中の:idの値を取得
 
-  // データの取得
-  let query = 'SELECT id, title, completed FROM tasks WHERE id = $1';
-  let values = [id];
-  let result = await client.query(query, values);
+  // 2. データの取得
+  let task = { id: 1, title: 'サンプルタスク', completed: false };
   
-  // 指定したidのタスクが存在しない場合は404Not Foundとする
-  if (result.rowCount === 0) {
-    return res.status(404).send('Task not found');
-  }
+  // 3. 指定したidのタスクが存在しない場合は404Not Foundとする
 
   res.render('tasks/edit', {
-    task: result.rows[0]
+    task: task
   });
 });
 
 app.post('/tasks/edit/:id', async (req, res) => {
-  // URL中の:idの値を取得
-  let id = req.params.id;
+  // 1. URL中の:idの値を取得
 
-  // フォームに入力したデータを取得
-  let title = req.body.title;
-  let completed = req.body.completed === '完了';
+  // 2. フォームに入力したデータを取得
 
-  // データの取得
-  let query = 'UPDATE tasks SET title = $1, completed = $2 WHERE id = $3';
-  let values = [title, completed, id];
-  await client.query(query, values);
+  // 3. SQLを実行しデータを更新
 
   res.redirect('/tasks');
 });
 
 /* ---- ④タスク削除処理 ---- */
 app.post('/tasks/delete', async (req, res) => {
-  // フォーム中のidの値を取得
-  let id = req.body.id;
+  // 1. フォーム中のidの値を取得
 
-  // データの削除
-  let query = 'DELETE FROM tasks WHERE id = $1';
-  let values = [id];
-  await client.query(query, values);
+  // 2. データの削除
 
   res.redirect('/tasks');
 });
 
 /* ---- ⑤タスク完了処理 ---- */
 app.post('/tasks/complete/:id', async (req, res) => {
-  // URL中の:idの値を取得
-  let id = req.params.id;
+  // 1. URL中の:idの値を取得
 
-  // データの更新
-  let query = 'UPDATE tasks SET completed = TRUE WHERE id = $1';
-  let values = [id];
-  await client.query(query, values);
+  // 2. データの更新
 
   res.redirect('/tasks');
 });

@@ -228,3 +228,25 @@ tbody tr:last-child td {
 .danger-zone form {
   margin: 0;
 }
+
+.filter-controls {
+  margin-bottom: 16px;
+  text-align: right;
+}
+
+.filter-link {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  transition: all 0.2s ease;
+}
+
+.filter-link:hover {
+  background: var(--primary-50);
+  border-color: var(--primary);
+}

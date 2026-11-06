@@ -1,5 +1,6 @@
 import express from 'express';
 import { Client } from 'pg';
+import { readFileSync } from "node:fs";
 
 // データベースの接続情報を記載
 // この情報は講師よりSlackで提供します。

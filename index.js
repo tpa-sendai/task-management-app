@@ -9,6 +9,10 @@ const client = new Client({
   database: 'postgres',
   password: 'postgres',
   port: 5432,
+  ssl: {
+    ca: readFileSync(new URL('./global-bundle.pem', import.meta.url), 'utf8'),
+    rejectUnauthorized: true,
+  },
 });
 
 // Expressの設定
